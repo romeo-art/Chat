@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+
+<head>
+
+  <head>
+    <title id='title'>ChatBox</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  </head>
+
+<body style="background-color:rgb(149, 154, 158)">
+  <div style="background-color: gray; border-bottom: solid black 2px; height: 90px;">
+    <h1 class="text-center" style="padding-top: 20px;">socket.io chat box</h1>
+  </div>
+  <div style="background-color: white; width: 25%; margin-left: 20px; border-radius:10px;" id="onlineUsers">
+    <h3 class="text-center" style="background-color:antiquewhite; border-radius: 10px;">Online Users</h3>
+  </div>
+  <center id="login" style="padding-top: 300px;">
+    <form id="inputName">
+      <input style="height: 50px;" id="username" placeholder="Enter your username" autofocus='' required="" />
+      <br>
+      <br>
+      <button id="start" class="btn btn-default" type="submit" style="width: 100px;">Login</button>
+    </form>
+  </center>
+
+  <div id="main" style="width: 70%; background-color:white; margin-left: 380px; border-radius: 10px; border: solid gray; position: relative; bottom: 440px;">
+    <div id="messagesHolder">
+      <div id="messages"></div>
+    </div>
+  </div>
+  <!-- <button class="btn btn-default" id="logout" style="position: relative;left: 1200px;bottom: 530px;">Logout</button> -->
+  
+  <div class="container">
+    <div class="row" id="header">
+      <!-- <h2 class="myname" style="position:relative; left: 1050px;">drgsdfgsdfg</h2> -->
+    </div>
+    <div id="mainbody" class="row">
+      <div class="col-sm-4" id="otherConvo">
+        <ul id="chatboxes"></ul>
+      </div>
+    </div>
+    <form autocomplete='off' id="chatbox" action="">
+      <input id='m' autofocus='' autocomplete='off' placeholder="Send a message" style="width: 100%;"/>
+    </form>
+  </div>
+  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <script src="scripts.js"></script>
+</body>
+
+</html>
