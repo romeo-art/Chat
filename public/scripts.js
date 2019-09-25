@@ -1,3 +1,4 @@
+
 var myname = "";
 var id = "";
 var socket = io();
@@ -96,29 +97,7 @@ $(document).ready(function() {
 
 
 
- $(document).on("mouseenter", ".otherUser", function() {
-  $(this).css({"background-color":"#f4f0f5"});
-  $(this).css({"box-shadow": "-5px 5px 5px lightgrey"});
-});
 
-$(document).on("mouseleave", ".otherUser", function() {
-     $(this).css({"background-color":"transparent"});
-     $(this).css({"box-shadow": "none"});
-});
-
- $(document).on("mouseenter", ".newMes", function() {
-  $(this).css({"box-shadow": "-5px 5px 5px lightgrey"});
-});
-
-$(document).on("mouseleave", ".newMes", function() {
-     $(this).css({"box-shadow": "none"});
-});
-
-
-
-$(document).on('click', '#close', function() { 
-  $(this).closest("div").hide(); 
-});
 
 $(document).ready(function() {
   $("#logout").click(function() {
@@ -137,27 +116,3 @@ $(window).on('beforeunload', function(){
  function publicChat(divType,message) {
    $('#messages').append("<div id='mesDivHolder'><div class='newMes' id='"+divType+"'><h5 id='me'>"+message + "</h5></div><div>");
  }
-
-
-  $(document).on('click', '.otherUser', function() { 
-  if (!conversations.includes($(this).find("#User").text()+$(this).find("#userId").text())) {
-    conversations.push($(this).find("#User").text()+$(this).find("#userId").text());
-    privateChat($(this).find("#User").text()+$(this).find("#userId").text(), $(this).find("#User").text(), "Hi there!!");
-  } else {
-    $("#"+$(this).find("#User").text()+$(this).find("#userId").text()).show();
-  }
-});
-
- function privateChat(converId, name, pmessage) {
-  $('#chatboxes').prepend("<div id='"+converId+"' class='newChatWindow'><p id='close'>x</p><h3 id='chatmateName'>"+name+"</h3><div id='pmholder'><p id='pm'></p></div><form id='chatbox2'><input id='m2' autofocus='' autocomplete='off' placeholder='Send a message'/></form></div>");
-  $("#"+converId).find("#pm").append("<div class='pmdivh'><div class='pmdiv' id='ntm'><p id='PM'><b>"+name+"</b>: "+pmessage+"</p></div></div>");
- }
-  $(document).on('submit', "#chatbox2", function(e) {
-   e.preventDefault();
-   if ($(this).find("#m2").val() != "") {
-    socket.emit('private message', {id:id, name: myname, receipient: $(this).closest("div").closest("div").attr("id"), message: $(this).find("#m2").val()});
-    $(this).find("#m2").val("");
-    var h = $(this).closest("div").find("#pmholder")[0].scrollHeight;
-    $(this).closest("div").find("#pmholder").scrollTop(h);
-  }
-});
