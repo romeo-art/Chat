@@ -25,7 +25,7 @@ $(document).ready(function() {
       socket.on('user login', function(msg){
         if (!listOfUsers.includes(msg.name+": "+msg.id) && msg.id!=id) {
           listOfUsers.push(msg.name+": "+msg.id);
-          $('#onlineUsers').append("<div class='otherUser' id='"+msg.id+msg.name+"'><h3 id='User'>"+msg.name+ "</h3><span id='userId'>"+msg.id+"</span></div>");
+          $('#onlineUsers').append("<div class='otherUser' id='"+msg.id+msg.name+"'><h3 id='User'>"+msg.name+ "</h3></div>");
           socket.emit('user login', {id:id,name:myname});
         }
       });
@@ -48,30 +48,6 @@ $(document).ready(function() {
 
 
 
-      socket.on('typing', function(msg) {
-        if (msg.type == "private") {
-          if (msg.receipient == myname+id) {
-            $("#"+msg.name+msg.id).find("#typingpm").remove();
-            clearInterval(typingpm);
-            $("#"+msg.name+msg.id).find("#pm").append("<div class='pmdivh' id='typingpm'><div class='typingPM'><p>"+ msg.name+ " is typing..."+"</p></div></div>");
-            typingpm = setInterval(function(){ $("#"+msg.name+msg.id).find("#typingpm").remove(); }, 1000);
-          }
-        } else if (msg.id != id && msg.name != myname || (msg.id != id && msg.name == myname)) {
-            $("#typing").remove();
-            clearInterval(typing);
-            if (!typer.includes(msg.name)) {
-              if (firsttyper == true) {
-                firsttyper = false;
-                typer += msg.name;
-              } else { 
-                typingtext = " are typing...";
-                typer += " & "+ msg.name;
-              }
-            }
-            $('#messages').append("<h5 id='typing'>"+ typer + typingtext+"</h5>"); 
-            typing = setInterval(function(){ $("#typing").remove(); }, 1000);
-        }    
-      });
 
       socket.on('logout', function(msg) {
         $("#"+msg.id+msg.name).find("#User").css({"color":"lightgrey"});
@@ -96,7 +72,7 @@ $(document).ready(function() {
         }
       });
 
-      myname = $("#`username`").val().split(" ").join("_");
+      myname = $("#username").val().split(" ").join("_");
       if (!myname.includes(": ")) { 
         $(".myname").text(myname);
         socket.emit('user login', {id: id, name: myname});
@@ -118,16 +94,7 @@ $(document).ready(function() {
       });        
 });
 
-$(document).ready(function() {
-  $('#m').keydown(function() {
-      socket.emit('typing', {id: id,name: myname,type:"public"});
-  });
-});
 
-$(document).on('keydown', "#m2", function() {
-   socket.emit('typing', {id: id,name: myname, receipient: $(this).closest("div").closest("div").attr("id"), type:"private"});
-
-});
 
  $(document).on("mouseenter", ".otherUser", function() {
   $(this).css({"background-color":"#f4f0f5"});
