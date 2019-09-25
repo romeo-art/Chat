@@ -2,17 +2,9 @@
 var myname = "";
 var id = "";
 var socket = io();
-var typing = 0;
-var typingpm = 0;
-var stilltying= false;
 var listOfUsers = [];
-var typer = "";
-var firsttyper = true;
 var conversations = [];
-var typingtext = " is typing...";
 var mesId = 0;
-
-
 
 $(document).ready(function() {
 
@@ -22,7 +14,6 @@ $(document).ready(function() {
         id += (Math.floor((Math.random() * 9) + 0)).toString();
       }
      
-
       socket.on('user login', function(msg){
         if (!listOfUsers.includes(msg.name+": "+msg.id) && msg.id!=id) {
           listOfUsers.push(msg.name+": "+msg.id);
@@ -94,9 +85,6 @@ $(document).ready(function() {
         }
       });        
 });
-
-
-
 
 
 $(document).ready(function() {
